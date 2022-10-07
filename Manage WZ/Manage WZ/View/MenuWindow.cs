@@ -1,6 +1,7 @@
 using Manage_WZ.Model;
 using Manage_WZ.View.SmallView;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Manage_WZ
@@ -31,7 +32,7 @@ namespace Manage_WZ
                     foreach (var wz in wzList)
                     {
                         var fi = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
-                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count+1 ,fi.Name, wz.NumberWZ,wz.date.ToString("d"),"Podgl¹d");
+                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count,fi.Name, wz.NumberWZ,wz.date.ToString("d"),"Podgl¹d");
                     }
                 }
                 else
@@ -61,24 +62,28 @@ namespace Manage_WZ
             addComp.ShowDialog();
         }
 
-        private void dataGridView1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if(dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
+            var newwz = new AddWz();
+            newwz.ShowDialog();
+            SyncDate();
+        }
+
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
             {
                 using (var context = new DatabaseContext())
                 {
                     int id = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString());
                     var wz = context.Wzs.FirstOrDefault(w => w.Id == id);
                     File.WriteAllBytes("C:\\Temp\\WZ.pdf", wz.PdfFile);
+                    var proc = Process.Start("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "C:\\Temp\\WZ.pdf");
+                    proc.WaitForExit();
+                    Thread.Sleep(1000);
+                    File.Delete("C:\\Temp\\WZ.pdf");
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var newwz = new AddWz();
-            newwz.ShowDialog();
-            SyncDate();
         }
     }
 }
