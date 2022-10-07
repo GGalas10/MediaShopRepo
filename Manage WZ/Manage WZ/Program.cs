@@ -1,4 +1,6 @@
+using Manage_WZ.Model;
 using Manage_WZ.View;
+using Manage_WZ.View.SmallView;
 using Setting = Manage_WZ.Properties.Settings;
 namespace Manage_WZ
 {
@@ -10,16 +12,8 @@ namespace Manage_WZ
         [STAThread]
         static void Main()
         {
-            //if (Setting.Default.FirstTime)
-            //{
-            //    ApplicationConfiguration.Initialize();
-            //    Application.Run(new FirstWindow());
-            //}
-            //else
-            //{
-                ApplicationConfiguration.Initialize();
-                Application.Run(new MenuWindow());
-            //}           
+            ApplicationConfiguration.Initialize();
+            Application.Run(new MenuWindow());
         }
     }
 }

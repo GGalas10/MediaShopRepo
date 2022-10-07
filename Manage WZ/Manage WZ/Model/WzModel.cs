@@ -9,7 +9,10 @@ namespace Manage_WZ.Model
     internal class WzModel
     {
         public int Id { get; set; }
+        public string NumberWZ { get; set; }
+        public int FirmId { get; set; }
         public virtual FirmModel Firm { get; set; }
-        public byte[] Data { get; set; }
+        public DateTime date { get; set; }
+        public byte[] PdfFile { get; set; }
     }
 }

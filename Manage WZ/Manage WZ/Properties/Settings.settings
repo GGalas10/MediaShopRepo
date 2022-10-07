@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="DbPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\Temp\</Value>
     </Setting>
     <Setting Name="DbName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">db.mdf</Value>
     </Setting>
     <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

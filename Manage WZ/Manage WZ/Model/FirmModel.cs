@@ -10,5 +10,6 @@ namespace Manage_WZ.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<WzModel> WzModels { get; set; }
     }
 }
