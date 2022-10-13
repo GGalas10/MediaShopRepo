@@ -8,24 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace Manage_WZ.View.SmallView
 {
     public partial class AddWz : Form
     {
+        public int dateId = 0;
+        WzModel newWz;
         public AddWz()
         {
+            newWz = new WzModel();
             InitializeComponent();
-        }
-
-        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            
         }
 
         private void AddWz_Load(object sender, EventArgs e)
         {
             Datasync();
+            DateWZLBL.Text = DateTime.Now.ToString("d");
+            DateDelLbl.Text = DateTime.Now.ToString("d");
+            DateFvLbl.Text = DateTime.Now.ToString("d");
+            newWz.dateFZ = DateTime.Now;
+            newWz.dateWZ = DateTime.Now;
+            newWz.dateDelivery = DateTime.Now;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -35,33 +41,36 @@ namespace Manage_WZ.View.SmallView
             var result = openFileDialog.ShowDialog();
             if(result == DialogResult.OK)
             {
-                textBox2.Text = openFileDialog.FileName;
+                FilePathBox.Text = openFileDialog.FileName;
             }
             else
             {
                 var tip = new ToolTip();
                 tip.IsBalloon = true;
-                tip.Show("Nie wybrano pliku", this, button2.Location.X, button2.Location.Y, 3000);
+                tip.Show("Nie wybrano pliku", this, OpenBtn.Location.X, OpenBtn.Location.Y, 3000);
             }
         }
         void Datasync()
         {
-            comboBox1.Items.Clear();
+            FirmCombo.Items.Clear();
             using (var context = new DatabaseContext())
             {
                 if (context.firms.ToList().Count>0) {
                     foreach (var company in context.firms.ToList())
                     {
-                        comboBox1.Items.Add(company.Name);
+                        FirmCombo.Items.Add(company.Name);
                     }
                 }
                 else
                 {
                     var tip = new ToolTip();
                     tip.IsBalloon = true;
-                    tip.Show("Nie posiadasz jeszcze żadnej firmy w bazie\nDodaj ją przez guzik obok", this, comboBox1.Location.X, comboBox1.Location.Y, 3000);
+                    tip.Show("Nie posiadasz jeszcze żadnej firmy w bazie\nDodaj ją przez guzik obok", this, FirmCombo.Location.X, FirmCombo.Location.Y, 3000);
                 }
             }
+            TypeCombo.Items.Clear();
+            TypeCombo.Items.Add("Dostawa");
+            TypeCombo.Items.Add("Serwis");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -73,46 +82,92 @@ namespace Manage_WZ.View.SmallView
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox1.Text) && comboBox1.SelectedItem != null)
+            using (var context = new DatabaseContext())
             {
-                using (var context = new DatabaseContext())
+                if (!string.IsNullOrEmpty(FirmCombo.Text) || !string.IsNullOrEmpty(TypeCombo.Text) ||
+                    !string.IsNullOrEmpty(FvNuberBox.Text) || !string.IsNullOrEmpty(WzNumberBox.Text) || !string.IsNullOrEmpty(FilePathBox.Text))
                 {
-                    var wz = new WzModel();
-                    wz.NumberWZ = textBox1.Text;
-                    wz.FirmId = context.firms.FirstOrDefault(f => f.Name == comboBox1.SelectedItem.ToString()).Id;
-                    wz.date = monthCalendar1.SelectionStart;
-                    byte[] bytes = File.ReadAllBytes(textBox2.Text.Trim());
-                    wz.PdfFile = bytes;
-                    context.Wzs.Add(wz);
+                    newWz.FirmId = context.firms.FirstOrDefault(f=>f.Name == FirmCombo.Text).Id;
+                    newWz.Firm = context.firms.FirstOrDefault(f => f.Name == FirmCombo.Text);
+                    switch (TypeCombo.Text)
+                    {
+                        case "Dostawa":
+                            newWz.type = Model.Type.Dostawa;
+                            break;
+                        case "Serwis":
+                            newWz.type = Model.Type.Serwis;
+                            break;
+                    }
+                    newWz.NumberFv = FvNuberBox.Text.Trim();
+                    newWz.NumberWZ = WzNumberBox.Text.Trim();
+                    byte[] bytes = File.ReadAllBytes(FilePathBox.Text.Trim());
+                    newWz.PdfFile = bytes;
+                    context.Wzs.Add(newWz);
                     if (context.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Udał się zapis");
+                        MessageBox.Show("Zapis się udał");
                         this.Close();
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Musisz uzupełnić wszystkie rubryki");
+                }
             }
-            else
-            {
-                MessageBox.Show("Musisz wypełnić wszystkie rubryki");
-            }
         }
-
-        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
-        {
-            label3.Text = monthCalendar1.SelectionStart.ToString("d");
-            monthCalendar1.Visible = false;
-            monthCalendar1.Enabled = false;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            monthCalendar1.Visible = true;
-            monthCalendar1.Enabled = true;
-        }
-
         private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void TypeCombo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        public void visibleCalendar()
+        {
+            DateCalendar.Visible = true;
+            DateCalendar.Enabled = true;
+        }
+
+        private void DateWZLBL_DoubleClick(object sender, EventArgs e)
+        {
+            visibleCalendar();
+            dateId = 1;
+        }
+
+        private void DateFvLbl_Click(object sender, EventArgs e)
+        {
+            visibleCalendar();
+            dateId = 2;
+        }
+
+        private void DateDelLbl_Click(object sender, EventArgs e)
+        {
+            visibleCalendar();
+            dateId = 3;
+        }
+
+        private void DateCalendar_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            switch (dateId)
+            {
+                case 1:
+                    newWz.dateWZ = DateCalendar.SelectionStart.Date;
+                    DateWZLBL.Text = DateCalendar.SelectionStart.Date.ToString("d");
+                    break;
+                case 2:
+                    newWz.dateFZ = DateCalendar.SelectionStart.Date;
+                    DateFvLbl.Text = DateCalendar.SelectionStart.Date.ToString("d");
+                    break;
+                case 3:
+                    newWz.dateDelivery = DateCalendar.SelectionStart.Date;
+                    DateDelLbl.Text = DateCalendar.SelectionStart.Date.ToString("d");
+                    break;
+            }
+            DateCalendar.Visible = false;
+            DateCalendar.Enabled = false;
         }
     }
 }
