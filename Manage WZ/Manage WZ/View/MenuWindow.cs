@@ -32,7 +32,10 @@ namespace Manage_WZ
                     foreach (var wz in wzList)
                     {
                         var fi = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
-                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count,fi.Name, wz.NumberWZ,wz.date.ToString("d"),"Podgl¹d");
+                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count,fi.Name, 
+                            wz.NumberWZ,wz.NumberFv,
+                            wz.dateFZ.ToString("d"),wz.dateDelivery.ToString("d"),wz.dateWZ.ToString("d")
+                            , "Podgl¹d");
                     }
                 }
                 else
@@ -71,7 +74,7 @@ namespace Manage_WZ
 
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
+            if (dataGridView1.CurrentCell.ColumnIndex == 8 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
             {
                 using (var context = new DatabaseContext())
                 {

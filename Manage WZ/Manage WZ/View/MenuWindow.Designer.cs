@@ -36,6 +36,9 @@
             this.IDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NuberWZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NrFv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateFv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DelDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnCol = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
@@ -50,12 +53,12 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(572, 76);
+            this.panel1.Size = new System.Drawing.Size(1024, 76);
             this.panel1.TabIndex = 0;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(406, 15);
+            this.button2.Location = new System.Drawing.Point(858, 13);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(153, 29);
@@ -66,7 +69,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 15);
+            this.button1.Location = new System.Drawing.Point(4, 13);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(165, 29);
@@ -83,6 +86,9 @@
             this.IDCol,
             this.NameCol,
             this.NuberWZ,
+            this.NrFv,
+            this.DateFv,
+            this.DelDate,
             this.DateCol,
             this.BtnCol});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -90,7 +96,7 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(572, 494);
+            this.dataGridView1.Size = new System.Drawing.Size(1024, 494);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
             // 
@@ -121,9 +127,24 @@
             this.NuberWZ.HeaderText = "Numer Oryginału";
             this.NuberWZ.Name = "NuberWZ";
             // 
+            // NrFv
+            // 
+            this.NrFv.HeaderText = "Numer faktury";
+            this.NrFv.Name = "NrFv";
+            // 
+            // DateFv
+            // 
+            this.DateFv.HeaderText = "Data faktury";
+            this.DateFv.Name = "DateFv";
+            // 
+            // DelDate
+            // 
+            this.DelDate.HeaderText = "Data dostawy";
+            this.DelDate.Name = "DelDate";
+            // 
             // DateCol
             // 
-            this.DateCol.HeaderText = "Data";
+            this.DateCol.HeaderText = "Data Wz";
             this.DateCol.MinimumWidth = 100;
             this.DateCol.Name = "DateCol";
             // 
@@ -139,13 +160,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 566);
+            this.ClientSize = new System.Drawing.Size(1024, 566);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximumSize = new System.Drawing.Size(588, 605);
-            this.MinimumSize = new System.Drawing.Size(588, 605);
+            this.MaximumSize = new System.Drawing.Size(1040, 605);
+            this.MinimumSize = new System.Drawing.Size(1040, 605);
             this.Name = "MenuWindow";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MenuWindow_Load);
@@ -166,6 +187,9 @@
         private DataGridViewTextBoxColumn IDCol;
         private DataGridViewTextBoxColumn NameCol;
         private DataGridViewTextBoxColumn NuberWZ;
+        private DataGridViewTextBoxColumn NrFv;
+        private DataGridViewTextBoxColumn DateFv;
+        private DataGridViewTextBoxColumn DelDate;
         private DataGridViewTextBoxColumn DateCol;
         private DataGridViewButtonColumn BtnCol;
     }
