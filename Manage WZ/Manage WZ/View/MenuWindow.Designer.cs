@@ -51,12 +51,14 @@
             this.DateCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnCol = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Calendar = new System.Windows.Forms.MonthCalendar();
+            this.ZeroBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ZeroBtn);
             this.panel1.Controls.Add(this.SearchBox);
             this.panel1.Controls.Add(this.FirmsBox);
             this.panel1.Controls.Add(this.EndFiltr);
@@ -285,6 +287,16 @@
             this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
             this.Calendar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Calendar_KeyPress);
             // 
+            // ZeroBtn
+            // 
+            this.ZeroBtn.Location = new System.Drawing.Point(261, 5);
+            this.ZeroBtn.Name = "ZeroBtn";
+            this.ZeroBtn.Size = new System.Drawing.Size(75, 28);
+            this.ZeroBtn.TabIndex = 13;
+            this.ZeroBtn.Text = "Zeruj";
+            this.ZeroBtn.UseVisualStyleBackColor = true;
+            this.ZeroBtn.Click += new System.EventHandler(this.ZeroBtn_Click);
+            // 
             // MenuWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -333,5 +345,6 @@
         private Label StartDateFiltr;
         private Label FiltrFirms;
         private MonthCalendar Calendar;
+        private Button ZeroBtn;
     }
 }

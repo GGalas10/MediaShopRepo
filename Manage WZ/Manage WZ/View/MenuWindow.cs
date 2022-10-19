@@ -10,7 +10,7 @@ namespace Manage_WZ
     public partial class MenuWindow : Form
     {
         bool czy = false;
-        DateTime startDate = DateTime.UtcNow.AddYears(-1), endDate=DateTime.UtcNow.AddDays(1);
+        DateTime startDate = DateTime.UtcNow.AddYears(-5), endDate=DateTime.UtcNow.AddDays(1);
         bool who = false;
         public MenuWindow()
         {
@@ -153,7 +153,7 @@ namespace Manage_WZ
         {
             if (who)
             {
-                if (endDate > startDate)
+                if (Calendar.SelectionStart < startDate)
                 {
                     var tip = new ToolTip()
                     {
@@ -168,7 +168,7 @@ namespace Manage_WZ
             }
             else
             {
-                if (endDate < startDate)
+                if (endDate < Calendar.SelectionStart)
                 {
                     var tip = new ToolTip()
                     {
@@ -227,6 +227,13 @@ namespace Manage_WZ
             EndFiltr.Location = new Point((panel1.Size.Width / 2) - 39, 39);
         }
 
+        private void ZeroBtn_Click(object sender, EventArgs e)
+        {
+            startDate = DateTime.UtcNow.AddYears(-5);
+            StartFiltr.Text = startDate.ToString("d");
+            SyncDate();
+        }
+
         private void StartDateFiltr_Click(object sender, EventArgs e)
         {
             if (Calendar.Enabled == false)
@@ -234,6 +241,7 @@ namespace Manage_WZ
                 Calendar.Location = new Point(StartDateFiltr.Location.X - 20,StartDateFiltr.Location.Y+30);
                 Calendar.Enabled = true;
                 Calendar.Visible = true;
+                who = false;
             }
             else
             {
