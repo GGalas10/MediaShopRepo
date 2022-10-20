@@ -30,13 +30,12 @@
         {
             this.FolderBtn = new System.Windows.Forms.Button();
             this.SaveBtn = new System.Windows.Forms.Button();
-            this.NameBox = new System.Windows.Forms.TextBox();
             this.pathBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // FolderBtn
             // 
-            this.FolderBtn.Location = new System.Drawing.Point(12, 41);
+            this.FolderBtn.Location = new System.Drawing.Point(12, 12);
             this.FolderBtn.Name = "FolderBtn";
             this.FolderBtn.Size = new System.Drawing.Size(220, 23);
             this.FolderBtn.TabIndex = 0;
@@ -46,7 +45,7 @@
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(12, 99);
+            this.SaveBtn.Location = new System.Drawing.Point(12, 70);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(220, 23);
             this.SaveBtn.TabIndex = 1;
@@ -54,18 +53,10 @@
             this.SaveBtn.UseVisualStyleBackColor = true;
             this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
-            // NameBox
-            // 
-            this.NameBox.Location = new System.Drawing.Point(12, 12);
-            this.NameBox.MaxLength = 50;
-            this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(220, 23);
-            this.NameBox.TabIndex = 2;
-            // 
             // pathBox
             // 
             this.pathBox.Enabled = false;
-            this.pathBox.Location = new System.Drawing.Point(12, 70);
+            this.pathBox.Location = new System.Drawing.Point(12, 41);
             this.pathBox.Name = "pathBox";
             this.pathBox.Size = new System.Drawing.Size(220, 23);
             this.pathBox.TabIndex = 3;
@@ -74,13 +65,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(244, 127);
+            this.ClientSize = new System.Drawing.Size(244, 98);
             this.Controls.Add(this.pathBox);
-            this.Controls.Add(this.NameBox);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.FolderBtn);
+            this.MaximumSize = new System.Drawing.Size(260, 137);
+            this.MinimumSize = new System.Drawing.Size(260, 137);
             this.Name = "FirstWindow";
-            this.Text = "FirstWindow";
+            this.Text = "Wybór db";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,7 +82,6 @@
 
         private Button FolderBtn;
         private Button SaveBtn;
-        private TextBox NameBox;
         private TextBox pathBox;
     }
 }

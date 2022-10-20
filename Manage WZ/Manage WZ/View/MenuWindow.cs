@@ -46,6 +46,7 @@ namespace Manage_WZ
                     Directory.CreateDirectory("C:\\Temp");
                     context.Database.Create();
                 }
+                
                 if (!string.IsNullOrEmpty(FirmsBox.Text) && FirmsBox.Text!= "Wszystkie firmy")
                 {
                     Firmsid = context.firms.FirstOrDefault(f => f.Name == FirmsBox.Text).Id;
@@ -56,7 +57,15 @@ namespace Manage_WZ
                 {
                     wzList = context.Wzs.Where(d=>d.dateWZ>=startDate && d.dateWZ<=endDate).ToList();
                 }
-                if(SearchText.Enabled == true && !string.IsNullOrEmpty(SearchText.Text))
+                if (FilterDelBox.Text == "Dostawa")
+                {
+                    wzList = wzList.Where(wz => wz.type == Model.Type.Dostawa).ToList();
+                }
+                if (FilterDelBox.Text == "Serwis")
+                {
+                    wzList = wzList.Where(wz => wz.type == Model.Type.Serwis).ToList();
+                }
+                if (SearchText.Enabled == true && !string.IsNullOrEmpty(SearchText.Text))
                 {
                     if(SearchBox.Text == "Numer Wz")
                     {
@@ -90,7 +99,6 @@ namespace Manage_WZ
             SyncDate();
             SyncFirms();
         }
-
         private void MenuWindow_Shown(object sender, EventArgs e)
         {
             if (czy)
@@ -100,21 +108,18 @@ namespace Manage_WZ
                 tip.Show("Brak danych w bazie", this, 15, 50, 3000);
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             AddCompany addComp = new AddCompany();
             addComp.ShowDialog();
             SyncFirms();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             var newwz = new AddWz();
             newwz.ShowDialog();
             SyncDate();
         }
-
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 8 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
@@ -122,16 +127,12 @@ namespace Manage_WZ
                 using (var context = new DatabaseContext())
                 {
                     int id = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString());
-                    var wz = context.Wzs.FirstOrDefault(w => w.Id == id);
-                    File.WriteAllBytes("C:\\Temp\\WZ.pdf", wz.PdfFile);
-                    var proc = Process.Start("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "C:\\Temp\\WZ.pdf");
-                    proc.WaitForExit();
-                    Thread.Sleep(1000);
-                    File.Delete("C:\\Temp\\WZ.pdf");
+                    var View = new ViewWz(id);
+                    View.ShowDialog();
                 }
+                SyncDate();
             }
         }
-
         private void EndDataFiltr_Click(object sender, EventArgs e)
         {
             if (Calendar.Enabled == false)
@@ -148,7 +149,6 @@ namespace Manage_WZ
             }
             
         }
-
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
             if (who)
@@ -185,27 +185,22 @@ namespace Manage_WZ
             Calendar.Enabled = false;
             Calendar.Visible = false;
         }
-
         private void FirmsBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
-
         private void SearchBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
-
         private void FirmsBox_TextChanged(object sender, EventArgs e)
         {
             SyncDate();
         }
-
         private void SearchText_TextChanged(object sender, EventArgs e)
         {
             SyncDate();
         }
-
         private void SearchBox_TextChanged(object sender, EventArgs e)
         {
             SearchText.Enabled = true;
@@ -218,7 +213,6 @@ namespace Manage_WZ
                 Calendar.Visible = false;
             }
         }
-
         private void MenuWindow_SizeChanged(object sender, EventArgs e)
         {
             StartDateFiltr.Location = new Point((panel1.Size.Width / 2) - 170, 9);
@@ -226,14 +220,22 @@ namespace Manage_WZ
             StartFiltr.Location = new Point((panel1.Size.Width / 2) - 170, 39);
             EndFiltr.Location = new Point((panel1.Size.Width / 2) - 39, 39);
         }
-
         private void ZeroBtn_Click(object sender, EventArgs e)
         {
             startDate = DateTime.UtcNow.AddYears(-5);
             StartFiltr.Text = startDate.ToString("d");
+            endDate = DateTime.UtcNow.AddDays(1);
+            EndFiltr.Text = endDate.ToString("d");
             SyncDate();
         }
-
+        private void FilterDelBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        private void FilterDelBox_TextChanged(object sender, EventArgs e)
+        {
+            SyncDate();
+        }
         private void StartDateFiltr_Click(object sender, EventArgs e)
         {
             if (Calendar.Enabled == false)

@@ -33,7 +33,6 @@ namespace Manage_WZ.View.SmallView
             newWz.dateWZ = DateTime.Now;
             newWz.dateDelivery = DateTime.Now;
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

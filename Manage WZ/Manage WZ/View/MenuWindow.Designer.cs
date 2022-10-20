@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.FilterDelBox = new System.Windows.Forms.ComboBox();
+            this.ZeroBtn = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.ComboBox();
             this.FirmsBox = new System.Windows.Forms.ComboBox();
             this.EndFiltr = new System.Windows.Forms.Label();
@@ -51,13 +53,14 @@
             this.DateCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnCol = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Calendar = new System.Windows.Forms.MonthCalendar();
-            this.ZeroBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.Calendar);
+            this.panel1.Controls.Add(this.FilterDelBox);
             this.panel1.Controls.Add(this.ZeroBtn);
             this.panel1.Controls.Add(this.SearchBox);
             this.panel1.Controls.Add(this.FirmsBox);
@@ -76,6 +79,31 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1024, 74);
             this.panel1.TabIndex = 0;
+            // 
+            // FilterDelBox
+            // 
+            this.FilterDelBox.FormattingEnabled = true;
+            this.FilterDelBox.Items.AddRange(new object[] {
+            "Dostawa i Serwis",
+            "Dostawa",
+            "Serwis"});
+            this.FilterDelBox.Location = new System.Drawing.Point(560, 38);
+            this.FilterDelBox.Name = "FilterDelBox";
+            this.FilterDelBox.Size = new System.Drawing.Size(173, 27);
+            this.FilterDelBox.TabIndex = 14;
+            this.FilterDelBox.Text = "Dostawa i Serwis";
+            this.FilterDelBox.TextChanged += new System.EventHandler(this.FilterDelBox_TextChanged);
+            this.FilterDelBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterDelBox_KeyPress);
+            // 
+            // ZeroBtn
+            // 
+            this.ZeroBtn.Location = new System.Drawing.Point(261, 5);
+            this.ZeroBtn.Name = "ZeroBtn";
+            this.ZeroBtn.Size = new System.Drawing.Size(75, 28);
+            this.ZeroBtn.TabIndex = 13;
+            this.ZeroBtn.Text = "Zeruj";
+            this.ZeroBtn.UseVisualStyleBackColor = true;
+            this.ZeroBtn.Click += new System.EventHandler(this.ZeroBtn_Click);
             // 
             // SearchBox
             // 
@@ -110,6 +138,7 @@
             this.EndFiltr.Size = new System.Drawing.Size(81, 19);
             this.EndFiltr.TabIndex = 9;
             this.EndFiltr.Text = "20.10.2022";
+            this.EndFiltr.Click += new System.EventHandler(this.EndDataFiltr_Click);
             // 
             // StartFiltr
             // 
@@ -120,6 +149,7 @@
             this.StartFiltr.Size = new System.Drawing.Size(81, 19);
             this.StartFiltr.TabIndex = 8;
             this.StartFiltr.Text = "20.10.2022";
+            this.StartFiltr.Click += new System.EventHandler(this.StartDateFiltr_Click);
             // 
             // SearchFiltr
             // 
@@ -135,9 +165,9 @@
             // 
             this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchText.Enabled = false;
-            this.SearchText.Location = new System.Drawing.Point(610, 39);
+            this.SearchText.Location = new System.Drawing.Point(739, 39);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(410, 26);
+            this.SearchText.Size = new System.Drawing.Size(281, 26);
             this.SearchText.TabIndex = 5;
             this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
@@ -197,6 +227,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -214,6 +246,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 72);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(1024, 494);
             this.dataGridView1.TabIndex = 0;
@@ -223,6 +256,7 @@
             // 
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
             this.Id.Visible = false;
             // 
             // IDCol
@@ -231,6 +265,7 @@
             this.IDCol.HeaderText = "L.P.";
             this.IDCol.MinimumWidth = 50;
             this.IDCol.Name = "IDCol";
+            this.IDCol.ReadOnly = true;
             this.IDCol.Width = 50;
             // 
             // NameCol
@@ -240,32 +275,38 @@
             this.NameCol.HeaderText = "Firma";
             this.NameCol.MinimumWidth = 150;
             this.NameCol.Name = "NameCol";
+            this.NameCol.ReadOnly = true;
             // 
             // NuberWZ
             // 
             this.NuberWZ.HeaderText = "Numer Oryginału";
             this.NuberWZ.Name = "NuberWZ";
+            this.NuberWZ.ReadOnly = true;
             // 
             // NrFv
             // 
             this.NrFv.HeaderText = "Numer faktury";
             this.NrFv.Name = "NrFv";
+            this.NrFv.ReadOnly = true;
             // 
             // DateFv
             // 
             this.DateFv.HeaderText = "Data faktury";
             this.DateFv.Name = "DateFv";
+            this.DateFv.ReadOnly = true;
             // 
             // DelDate
             // 
             this.DelDate.HeaderText = "Data dostawy";
             this.DelDate.Name = "DelDate";
+            this.DelDate.ReadOnly = true;
             // 
             // DateCol
             // 
             this.DateCol.HeaderText = "Data Wz";
             this.DateCol.MinimumWidth = 100;
             this.DateCol.Name = "DateCol";
+            this.DateCol.ReadOnly = true;
             // 
             // BtnCol
             // 
@@ -273,13 +314,14 @@
             this.BtnCol.HeaderText = "Podgląd";
             this.BtnCol.MinimumWidth = 75;
             this.BtnCol.Name = "BtnCol";
+            this.BtnCol.ReadOnly = true;
             this.BtnCol.Width = 75;
             // 
             // Calendar
             // 
             this.Calendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Calendar.Enabled = false;
-            this.Calendar.Location = new System.Drawing.Point(314, 35);
+            this.Calendar.Location = new System.Drawing.Point(285, 35);
             this.Calendar.MaxSelectionCount = 1;
             this.Calendar.Name = "Calendar";
             this.Calendar.TabIndex = 1;
@@ -287,22 +329,11 @@
             this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
             this.Calendar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Calendar_KeyPress);
             // 
-            // ZeroBtn
-            // 
-            this.ZeroBtn.Location = new System.Drawing.Point(261, 5);
-            this.ZeroBtn.Name = "ZeroBtn";
-            this.ZeroBtn.Size = new System.Drawing.Size(75, 28);
-            this.ZeroBtn.TabIndex = 13;
-            this.ZeroBtn.Text = "Zeruj";
-            this.ZeroBtn.UseVisualStyleBackColor = true;
-            this.ZeroBtn.Click += new System.EventHandler(this.ZeroBtn_Click);
-            // 
             // MenuWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 566);
-            this.Controls.Add(this.Calendar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -346,5 +377,6 @@
         private Label FiltrFirms;
         private MonthCalendar Calendar;
         private Button ZeroBtn;
+        private ComboBox FilterDelBox;
     }
 }

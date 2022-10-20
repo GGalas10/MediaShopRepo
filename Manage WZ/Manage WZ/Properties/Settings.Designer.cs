@@ -37,7 +37,7 @@ namespace Manage_WZ.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("db.mdf")]
+        [global::System.Configuration.DefaultSettingValueAttribute("WZManager.mdf")]
         public string DbName {
             get {
                 return ((string)(this["DbName"]));

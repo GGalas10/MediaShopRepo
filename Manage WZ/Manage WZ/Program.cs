@@ -12,8 +12,16 @@ namespace Manage_WZ
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MenuWindow());
+            if (Setting.Default.FirstTime)
+            {
+                ApplicationConfiguration.Initialize();
+                Application.Run(new FirstWindow());
+            }
+            else
+            {
+                ApplicationConfiguration.Initialize();
+                Application.Run(new MenuWindow());
+            }
         }
     }
 }
