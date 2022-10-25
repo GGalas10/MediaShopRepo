@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manage WZ", "Manage WZ\Manage WZ.csproj", "{7B7D4972-1FEC-4211-A667-93618C37DD2A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Manager Wz", "Manager Wz\Manager Wz.vdproj", "{36230A17-4706-48E3-BD5A-CCA19F638C14}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WZ manager", "WZ manager\WZ manager.vdproj", "{25EC5776-5CA8-465A-95CF-44FF41A00723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{7B7D4972-1FEC-4211-A667-93618C37DD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B7D4972-1FEC-4211-A667-93618C37DD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B7D4972-1FEC-4211-A667-93618C37DD2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36230A17-4706-48E3-BD5A-CCA19F638C14}.Debug|Any CPU.ActiveCfg = Debug
-		{36230A17-4706-48E3-BD5A-CCA19F638C14}.Release|Any CPU.ActiveCfg = Release
+		{25EC5776-5CA8-465A-95CF-44FF41A00723}.Debug|Any CPU.ActiveCfg = Debug
+		{25EC5776-5CA8-465A-95CF-44FF41A00723}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

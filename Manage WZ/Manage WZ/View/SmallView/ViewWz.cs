@@ -52,7 +52,7 @@ namespace Manage_WZ.View.SmallView
             {
                 var wz = context.Wzs.FirstOrDefault(w => w.Id == _id);
                 File.WriteAllBytes("C:\\Temp\\WZ.pdf", wz.PdfFile);
-                var proc = Process.Start("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "C:\\Temp\\WZ.pdf");
+                var proc = Process.Start("C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe", "C:\\Temp\\WZ.pdf");
                 proc.WaitForExit();
                 Thread.Sleep(1000);
                 File.Delete("C:\\Temp\\WZ.pdf");
@@ -166,6 +166,28 @@ namespace Manage_WZ.View.SmallView
             var comp = new AddCompany();
             comp.ShowDialog();
             syncFirm();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using(var context = new DatabaseContext())
+            {
+                var folderBrowser = new FolderBrowserDialog();
+                var result = folderBrowser.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var wz = context.Wzs.FirstOrDefault(w => w.Id == _id);
+                    File.WriteAllBytes($"{folderBrowser.SelectedPath}\\{wz.NumberFv}.pdf", wz.PdfFile);
+                }
+                else
+                {
+                    var tip = new ToolTip()
+                    {
+                        IsBalloon = true
+                    };
+                    tip.Show("Należy wybrać scieżkę", this, button1.Location.X + 10, button1.Location.Y, 3000);
+                }
+            }
         }
 
         private void SaveBtn_Click(object sender, EventArgs e)

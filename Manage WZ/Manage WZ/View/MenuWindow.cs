@@ -1,4 +1,5 @@
 using Manage_WZ.Model;
+using Manage_WZ.Properties;
 using Manage_WZ.View.SmallView;
 using System.Diagnostics;
 using System.IO;
@@ -36,17 +37,20 @@ namespace Manage_WZ
         public void SyncDate()
         {
             List<WzModel> wzList = new List<WzModel>();
-            int Firmsid;
-            StartFiltr.Text = startDate.ToString("d");
-            EndFiltr.Text = endDate.ToString("d");
+            int Firmsid;           
             using (DatabaseContext context = new DatabaseContext())
             {
+                
                 if (!context.Database.Exists())
                 {
-                    Directory.CreateDirectory("C:\\Temp");
                     context.Database.Create();
                 }
-                
+                if (context.Wzs.Count() > 0)
+                {
+                    startDate = context.Wzs.Min(wz => wz.dateDelivery);
+                }
+                StartFiltr.Text = startDate.ToString("d");
+                EndFiltr.Text = endDate.ToString("d");
                 if (!string.IsNullOrEmpty(FirmsBox.Text) && FirmsBox.Text!= "Wszystkie firmy")
                 {
                     Firmsid = context.firms.FirstOrDefault(f => f.Name == FirmsBox.Text).Id;
@@ -78,6 +82,7 @@ namespace Manage_WZ
                 }
                 if (context.Wzs.ToList().Count > 0)
                 {
+                    wzList = wzList.OrderByDescending(wz=>wz.dateDelivery).ToList();
                     dataGridView1.Rows.Clear();
                     foreach (var wz in wzList)
                     {
@@ -85,7 +90,7 @@ namespace Manage_WZ
                         dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count,fi.Name, 
                             wz.NumberWZ,wz.NumberFv,
                             wz.dateFZ.ToString("d"),wz.dateDelivery.ToString("d"),wz.dateWZ.ToString("d")
-                            , "Podgl¹d");
+                            , "Podgl¹d","Usuñ");
                     }
                 }
                 else
@@ -110,8 +115,8 @@ namespace Manage_WZ
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            AddCompany addComp = new AddCompany();
-            addComp.ShowDialog();
+            AllFirms allfirms = new AllFirms();
+            allfirms.ShowDialog();
             SyncFirms();
         }
         private void button1_Click(object sender, EventArgs e)
@@ -131,6 +136,32 @@ namespace Manage_WZ
                     View.ShowDialog();
                 }
                 SyncDate();
+            }
+            else
+            {
+                if (dataGridView1.CurrentCell.ColumnIndex == 9 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
+                {
+                    using (var context = new DatabaseContext())
+                    {
+                        int id = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString());
+                        var wz = context.Wzs.FirstOrDefault(wz => wz.Id == id);
+                        var firm = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
+                        var result = MessageBox.Show($"Czy na pewno chcesz usun¹æ wz {wz.NumberWZ} z firmy{firm.Name}" +
+                            $"z dnia {wz.dateDelivery.ToString("d")}", 
+                            "Usun¹æ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            wz.Firm = null;
+                            wz.FirmId = -1;
+                            context.Wzs.Remove(wz);
+                            if (context.SaveChanges() > 0)
+                            {
+                                MessageBox.Show("Dokument zosta³ usuniêty");
+                            }
+                        }
+                       }
+                SyncDate();
+                }
             }
         }
         private void EndDataFiltr_Click(object sender, EventArgs e)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddWz));
             this.WzNumberLbl = new System.Windows.Forms.Label();
             this.WzNumberBox = new System.Windows.Forms.TextBox();
             this.FirmLbl = new System.Windows.Forms.Label();
@@ -248,6 +249,7 @@
             this.Controls.Add(this.WzNumberBox);
             this.Controls.Add(this.WzNumberLbl);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(604, 286);
             this.MinimumSize = new System.Drawing.Size(604, 286);

@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.FilterDelBox = new System.Windows.Forms.ComboBox();
             this.ZeroBtn = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.ComboBox();
@@ -52,7 +54,7 @@
             this.DelDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnCol = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Calendar = new System.Windows.Forms.MonthCalendar();
+            this.DelCol = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -79,6 +81,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1024, 74);
             this.panel1.TabIndex = 0;
+            // 
+            // Calendar
+            // 
+            this.Calendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Calendar.Enabled = false;
+            this.Calendar.Location = new System.Drawing.Point(285, 35);
+            this.Calendar.MaxSelectionCount = 1;
+            this.Calendar.Name = "Calendar";
+            this.Calendar.TabIndex = 1;
+            this.Calendar.Visible = false;
+            this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
+            this.Calendar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Calendar_KeyPress);
             // 
             // FilterDelBox
             // 
@@ -210,7 +224,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(153, 29);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Dodaj firme";
+            this.button2.Text = "Firmy";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -242,7 +256,8 @@
             this.DateFv,
             this.DelDate,
             this.DateCol,
-            this.BtnCol});
+            this.BtnCol,
+            this.DelCol});
             this.dataGridView1.Location = new System.Drawing.Point(0, 72);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
@@ -254,6 +269,7 @@
             // 
             // Id
             // 
+            this.Id.FillWeight = 50F;
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
@@ -317,17 +333,13 @@
             this.BtnCol.ReadOnly = true;
             this.BtnCol.Width = 75;
             // 
-            // Calendar
+            // DelCol
             // 
-            this.Calendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Calendar.Enabled = false;
-            this.Calendar.Location = new System.Drawing.Point(285, 35);
-            this.Calendar.MaxSelectionCount = 1;
-            this.Calendar.Name = "Calendar";
-            this.Calendar.TabIndex = 1;
-            this.Calendar.Visible = false;
-            this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
-            this.Calendar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Calendar_KeyPress);
+            this.DelCol.HeaderText = "Usuń";
+            this.DelCol.Name = "DelCol";
+            this.DelCol.ReadOnly = true;
+            this.DelCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DelCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // MenuWindow
             // 
@@ -337,6 +349,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1040, 605);
             this.Name = "MenuWindow";
@@ -357,15 +370,6 @@
         private DataGridView dataGridView1;
         private Button button1;
         private Button button2;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn IDCol;
-        private DataGridViewTextBoxColumn NameCol;
-        private DataGridViewTextBoxColumn NuberWZ;
-        private DataGridViewTextBoxColumn NrFv;
-        private DataGridViewTextBoxColumn DateFv;
-        private DataGridViewTextBoxColumn DelDate;
-        private DataGridViewTextBoxColumn DateCol;
-        private DataGridViewButtonColumn BtnCol;
         private ComboBox SearchBox;
         private ComboBox FirmsBox;
         private Label EndFiltr;
@@ -378,5 +382,15 @@
         private MonthCalendar Calendar;
         private Button ZeroBtn;
         private ComboBox FilterDelBox;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn IDCol;
+        private DataGridViewTextBoxColumn NameCol;
+        private DataGridViewTextBoxColumn NuberWZ;
+        private DataGridViewTextBoxColumn NrFv;
+        private DataGridViewTextBoxColumn DateFv;
+        private DataGridViewTextBoxColumn DelDate;
+        private DataGridViewTextBoxColumn DateCol;
+        private DataGridViewButtonColumn BtnCol;
+        private DataGridViewButtonColumn DelCol;
     }
 }

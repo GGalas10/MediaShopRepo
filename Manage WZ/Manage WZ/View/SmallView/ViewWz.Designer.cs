@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewWz));
             this.NameLbl = new System.Windows.Forms.Label();
             this.WzNumberBox = new System.Windows.Forms.TextBox();
             this.WzNumberLbl = new System.Windows.Forms.Label();
@@ -50,6 +51,7 @@
             this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.NameBox = new System.Windows.Forms.ComboBox();
             this.AddBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // NameLbl
@@ -176,7 +178,7 @@
             // 
             // EditBtn
             // 
-            this.EditBtn.Location = new System.Drawing.Point(191, 277);
+            this.EditBtn.Location = new System.Drawing.Point(257, 277);
             this.EditBtn.Name = "EditBtn";
             this.EditBtn.Size = new System.Drawing.Size(75, 29);
             this.EditBtn.TabIndex = 9;
@@ -274,11 +276,22 @@
             this.AddBtn.Visible = false;
             this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(154, 277);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(97, 29);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Zapisz pdf";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ViewWz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 318);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Calendar);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.FvDateBox);
@@ -302,6 +315,7 @@
             this.Controls.Add(this.NameLbl);
             this.Controls.Add(this.AddBtn);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ViewWz";
             this.Text = "ViewWz";
@@ -335,5 +349,6 @@
         private MonthCalendar Calendar;
         private ComboBox NameBox;
         private Button AddBtn;
+        private Button button1;
     }
 }
