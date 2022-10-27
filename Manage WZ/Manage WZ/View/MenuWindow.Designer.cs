@@ -61,7 +61,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.Calendar);
             this.panel1.Controls.Add(this.FilterDelBox);
             this.panel1.Controls.Add(this.ZeroBtn);
             this.panel1.Controls.Add(this.SearchBox);
@@ -347,6 +346,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 566);
+            this.Controls.Add(this.Calendar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
