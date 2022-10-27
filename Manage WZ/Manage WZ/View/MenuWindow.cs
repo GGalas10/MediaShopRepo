@@ -69,6 +69,10 @@ namespace Manage_WZ
                 {
                     wzList = wzList.Where(wz => wz.type == Model.Type.Serwis).ToList();
                 }
+                if (FilterDelBox.Text == "Inne")
+                {
+                    wzList = wzList.Where(wz => wz.type == Model.Type.Inne).ToList();
+                }
                 if (SearchText.Enabled == true && !string.IsNullOrEmpty(SearchText.Text))
                 {
                     if(SearchBox.Text == "Numer Wz")
@@ -87,7 +91,7 @@ namespace Manage_WZ
                     foreach (var wz in wzList)
                     {
                         var fi = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
-                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count,fi.Name, 
+                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count+1,fi.Name, 
                             wz.NumberWZ,wz.NumberFv,
                             wz.dateFZ.ToString("d"),wz.dateDelivery.ToString("d"),wz.dateWZ.ToString("d")
                             , "Podgl¹d","Usuñ");
@@ -127,6 +131,8 @@ namespace Manage_WZ
         }
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
+            if (dataGridView1.CurrentCell == null)
+                return;
             if (dataGridView1.CurrentCell.ColumnIndex == 8 && dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value != null)
             {
                 using (var context = new DatabaseContext())

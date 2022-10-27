@@ -48,6 +48,8 @@
             this.FvNuberBox = new System.Windows.Forms.TextBox();
             this.TypeLbl = new System.Windows.Forms.Label();
             this.TypeCombo = new System.Windows.Forms.ComboBox();
+            this.DescriptionBox = new System.Windows.Forms.RichTextBox();
+            this.DescriptionLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // WzNumberLbl
@@ -107,7 +109,9 @@
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(12, 207);
+            this.SaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveBtn.Location = new System.Drawing.Point(12, 390);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(564, 28);
             this.SaveBtn.TabIndex = 7;
@@ -125,6 +129,7 @@
             // 
             // WZDateLbl
             // 
+            this.WZDateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.WZDateLbl.AutoSize = true;
             this.WZDateLbl.Location = new System.Drawing.Point(374, 9);
             this.WZDateLbl.Name = "WZDateLbl";
@@ -134,6 +139,7 @@
             // 
             // FvDateLbl
             // 
+            this.FvDateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FvDateLbl.AutoSize = true;
             this.FvDateLbl.Location = new System.Drawing.Point(374, 46);
             this.FvDateLbl.Name = "FvDateLbl";
@@ -143,6 +149,7 @@
             // 
             // DateWZLBL
             // 
+            this.DateWZLBL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DateWZLBL.AutoSize = true;
             this.DateWZLBL.Location = new System.Drawing.Point(495, 9);
             this.DateWZLBL.Name = "DateWZLBL";
@@ -153,6 +160,7 @@
             // 
             // DeliveryDateLbl
             // 
+            this.DeliveryDateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DeliveryDateLbl.AutoSize = true;
             this.DeliveryDateLbl.Location = new System.Drawing.Point(374, 86);
             this.DeliveryDateLbl.Name = "DeliveryDateLbl";
@@ -162,6 +170,7 @@
             // 
             // DateFvLbl
             // 
+            this.DateFvLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DateFvLbl.AutoSize = true;
             this.DateFvLbl.Location = new System.Drawing.Point(495, 46);
             this.DateFvLbl.Name = "DateFvLbl";
@@ -172,6 +181,7 @@
             // 
             // DateDelLbl
             // 
+            this.DateDelLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DateDelLbl.AutoSize = true;
             this.DateDelLbl.Location = new System.Drawing.Point(495, 86);
             this.DateDelLbl.Name = "DateDelLbl";
@@ -208,6 +218,7 @@
             // 
             // TypeLbl
             // 
+            this.TypeLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TypeLbl.AutoSize = true;
             this.TypeLbl.Location = new System.Drawing.Point(390, 131);
             this.TypeLbl.Name = "TypeLbl";
@@ -217,6 +228,7 @@
             // 
             // TypeCombo
             // 
+            this.TypeCombo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TypeCombo.FormattingEnabled = true;
             this.TypeCombo.Location = new System.Drawing.Point(390, 174);
             this.TypeCombo.Name = "TypeCombo";
@@ -224,11 +236,33 @@
             this.TypeCombo.TabIndex = 22;
             this.TypeCombo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TypeCombo_KeyPress);
             // 
+            // DescriptionBox
+            // 
+            this.DescriptionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DescriptionBox.Location = new System.Drawing.Point(12, 238);
+            this.DescriptionBox.Name = "DescriptionBox";
+            this.DescriptionBox.Size = new System.Drawing.Size(564, 146);
+            this.DescriptionBox.TabIndex = 23;
+            this.DescriptionBox.Text = "";
+            // 
+            // DescriptionLbl
+            // 
+            this.DescriptionLbl.AutoSize = true;
+            this.DescriptionLbl.Location = new System.Drawing.Point(12, 216);
+            this.DescriptionLbl.Name = "DescriptionLbl";
+            this.DescriptionLbl.Size = new System.Drawing.Size(45, 19);
+            this.DescriptionLbl.TabIndex = 24;
+            this.DescriptionLbl.Text = "Opis:";
+            // 
             // AddWz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 247);
+            this.ClientSize = new System.Drawing.Size(588, 429);
+            this.Controls.Add(this.DescriptionLbl);
+            this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.TypeCombo);
             this.Controls.Add(this.TypeLbl);
             this.Controls.Add(this.DateCalendar);
@@ -251,8 +285,7 @@
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximumSize = new System.Drawing.Size(604, 286);
-            this.MinimumSize = new System.Drawing.Size(604, 286);
+            this.MinimumSize = new System.Drawing.Size(604, 468);
             this.Name = "AddWz";
             this.Text = "Dodawanie WZ";
             this.Load += new System.EventHandler(this.AddWz_Load);
@@ -282,5 +315,7 @@
         private TextBox FvNuberBox;
         private Label TypeLbl;
         private ComboBox TypeCombo;
+        private RichTextBox DescriptionBox;
+        private Label DescriptionLbl;
     }
 }

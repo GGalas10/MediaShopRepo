@@ -52,6 +52,8 @@
             this.NameBox = new System.Windows.Forms.ComboBox();
             this.AddBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.DescriptionBox = new System.Windows.Forms.RichTextBox();
+            this.DescLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // NameLbl
@@ -102,8 +104,9 @@
             // 
             // DeliveryDateLbl
             // 
+            this.DeliveryDateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DeliveryDateLbl.AutoSize = true;
-            this.DeliveryDateLbl.Location = new System.Drawing.Point(272, 13);
+            this.DeliveryDateLbl.Location = new System.Drawing.Point(273, 13);
             this.DeliveryDateLbl.Name = "DeliveryDateLbl";
             this.DeliveryDateLbl.Size = new System.Drawing.Size(105, 19);
             this.DeliveryDateLbl.TabIndex = 0;
@@ -111,8 +114,9 @@
             // 
             // WzDateLbl
             // 
+            this.WzDateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.WzDateLbl.AutoSize = true;
-            this.WzDateLbl.Location = new System.Drawing.Point(272, 45);
+            this.WzDateLbl.Location = new System.Drawing.Point(273, 45);
             this.WzDateLbl.Name = "WzDateLbl";
             this.WzDateLbl.Size = new System.Drawing.Size(67, 19);
             this.WzDateLbl.TabIndex = 1;
@@ -120,8 +124,9 @@
             // 
             // FvDateLbl
             // 
+            this.FvDateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FvDateLbl.AutoSize = true;
-            this.FvDateLbl.Location = new System.Drawing.Point(272, 77);
+            this.FvDateLbl.Location = new System.Drawing.Point(273, 77);
             this.FvDateLbl.Name = "FvDateLbl";
             this.FvDateLbl.Size = new System.Drawing.Size(100, 19);
             this.FvDateLbl.TabIndex = 2;
@@ -129,8 +134,9 @@
             // 
             // DeliveryDateBox
             // 
+            this.DeliveryDateBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DeliveryDateBox.AutoSize = true;
-            this.DeliveryDateBox.Location = new System.Drawing.Point(383, 13);
+            this.DeliveryDateBox.Location = new System.Drawing.Point(384, 13);
             this.DeliveryDateBox.Name = "DeliveryDateBox";
             this.DeliveryDateBox.Size = new System.Drawing.Size(81, 19);
             this.DeliveryDateBox.TabIndex = 3;
@@ -139,8 +145,9 @@
             // 
             // WzDateBox
             // 
+            this.WzDateBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.WzDateBox.AutoSize = true;
-            this.WzDateBox.Location = new System.Drawing.Point(383, 45);
+            this.WzDateBox.Location = new System.Drawing.Point(384, 45);
             this.WzDateBox.Name = "WzDateBox";
             this.WzDateBox.Size = new System.Drawing.Size(81, 19);
             this.WzDateBox.TabIndex = 4;
@@ -149,8 +156,9 @@
             // 
             // FvDateBox
             // 
+            this.FvDateBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FvDateBox.AutoSize = true;
-            this.FvDateBox.Location = new System.Drawing.Point(383, 77);
+            this.FvDateBox.Location = new System.Drawing.Point(384, 77);
             this.FvDateBox.Name = "FvDateBox";
             this.FvDateBox.Size = new System.Drawing.Size(81, 19);
             this.FvDateBox.TabIndex = 5;
@@ -169,7 +177,8 @@
             // 
             // CloseBtn
             // 
-            this.CloseBtn.Location = new System.Drawing.Point(12, 277);
+            this.CloseBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.CloseBtn.Location = new System.Drawing.Point(6, 489);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(75, 29);
             this.CloseBtn.TabIndex = 8;
@@ -178,7 +187,8 @@
             // 
             // EditBtn
             // 
-            this.EditBtn.Location = new System.Drawing.Point(257, 277);
+            this.EditBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.EditBtn.Location = new System.Drawing.Point(251, 489);
             this.EditBtn.Name = "EditBtn";
             this.EditBtn.Size = new System.Drawing.Size(75, 29);
             this.EditBtn.TabIndex = 9;
@@ -188,8 +198,9 @@
             // 
             // SaveBtn
             // 
+            this.SaveBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.SaveBtn.Enabled = false;
-            this.SaveBtn.Location = new System.Drawing.Point(392, 277);
+            this.SaveBtn.Location = new System.Drawing.Point(386, 489);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 29);
             this.SaveBtn.TabIndex = 10;
@@ -213,7 +224,8 @@
             this.TypeBox.FormattingEnabled = true;
             this.TypeBox.Items.AddRange(new object[] {
             "Dostawa",
-            "Serwis"});
+            "Serwis",
+            "Inne"});
             this.TypeBox.Location = new System.Drawing.Point(52, 99);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(190, 27);
@@ -222,8 +234,9 @@
             // 
             // PathBox
             // 
+            this.PathBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.PathBox.Enabled = false;
-            this.PathBox.Location = new System.Drawing.Point(12, 237);
+            this.PathBox.Location = new System.Drawing.Point(6, 449);
             this.PathBox.Name = "PathBox";
             this.PathBox.Size = new System.Drawing.Size(455, 26);
             this.PathBox.TabIndex = 13;
@@ -231,8 +244,9 @@
             // 
             // OpenDialogBtn
             // 
+            this.OpenDialogBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.OpenDialogBtn.Enabled = false;
-            this.OpenDialogBtn.Location = new System.Drawing.Point(133, 202);
+            this.OpenDialogBtn.Location = new System.Drawing.Point(127, 414);
             this.OpenDialogBtn.Name = "OpenDialogBtn";
             this.OpenDialogBtn.Size = new System.Drawing.Size(206, 29);
             this.OpenDialogBtn.TabIndex = 14;
@@ -244,7 +258,7 @@
             // Calendar
             // 
             this.Calendar.Enabled = false;
-            this.Calendar.Location = new System.Drawing.Point(198, 13);
+            this.Calendar.Location = new System.Drawing.Point(195, 13);
             this.Calendar.MaxSelectionCount = 1;
             this.Calendar.Name = "Calendar";
             this.Calendar.TabIndex = 6;
@@ -266,8 +280,9 @@
             // 
             // AddBtn
             // 
+            this.AddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AddBtn.Enabled = false;
-            this.AddBtn.Location = new System.Drawing.Point(272, 102);
+            this.AddBtn.Location = new System.Drawing.Point(273, 102);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(192, 32);
             this.AddBtn.TabIndex = 16;
@@ -278,7 +293,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(154, 277);
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button1.Location = new System.Drawing.Point(148, 489);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(97, 29);
             this.button1.TabIndex = 17;
@@ -286,11 +302,34 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // DescriptionBox
+            // 
+            this.DescriptionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DescriptionBox.Enabled = false;
+            this.DescriptionBox.Location = new System.Drawing.Point(13, 212);
+            this.DescriptionBox.Name = "DescriptionBox";
+            this.DescriptionBox.Size = new System.Drawing.Size(456, 196);
+            this.DescriptionBox.TabIndex = 18;
+            this.DescriptionBox.Text = "";
+            // 
+            // DescLbl
+            // 
+            this.DescLbl.AutoSize = true;
+            this.DescLbl.Location = new System.Drawing.Point(12, 185);
+            this.DescLbl.Name = "DescLbl";
+            this.DescLbl.Size = new System.Drawing.Size(45, 19);
+            this.DescLbl.TabIndex = 19;
+            this.DescLbl.Text = "Opis:";
+            // 
             // ViewWz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 318);
+            this.ClientSize = new System.Drawing.Size(488, 526);
+            this.Controls.Add(this.DescLbl);
+            this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Calendar);
             this.Controls.Add(this.NameBox);
@@ -317,6 +356,7 @@
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(504, 565);
             this.Name = "ViewWz";
             this.Text = "ViewWz";
             this.Load += new System.EventHandler(this.ViewWz_Load);
@@ -350,5 +390,7 @@
         private ComboBox NameBox;
         private Button AddBtn;
         private Button button1;
+        private RichTextBox DescriptionBox;
+        private Label DescLbl;
     }
 }

@@ -70,6 +70,7 @@ namespace Manage_WZ.View.SmallView
             TypeCombo.Items.Clear();
             TypeCombo.Items.Add("Dostawa");
             TypeCombo.Items.Add("Serwis");
+            TypeCombo.Items.Add("Inne");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -96,7 +97,11 @@ namespace Manage_WZ.View.SmallView
                         case "Serwis":
                             newWz.type = Model.Type.Serwis;
                             break;
+                        case "Inne":
+                            newWz.type = Model.Type.Inne;
+                            break;
                     }
+                    newWz.Description = DescriptionBox.Text.Trim();
                     newWz.NumberFv = FvNuberBox.Text.Trim();
                     newWz.NumberWZ = WzNumberBox.Text.Trim();
                     byte[] bytes = File.ReadAllBytes(FilePathBox.Text.Trim());

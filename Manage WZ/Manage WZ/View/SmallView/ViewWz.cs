@@ -1,20 +1,14 @@
 ﻿using Manage_WZ.Model;
+using Manage_WZ.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Manage_WZ.View.SmallView
 {
     public partial class ViewWz : Form
     {
-        private int _id,who=0;
+        private int _id, who = 0;
         private bool Enabled = false;
         DateTime deldate = DateTime.UtcNow.AddYears(-1000), fvdate = DateTime.UtcNow.AddYears(-1000), wzdate = DateTime.UtcNow.AddYears(-1000);
         internal ViewWz(int id)
@@ -27,7 +21,6 @@ namespace Manage_WZ.View.SmallView
         {
             e.Handled = true;
         }
-
         private void ViewWz_Load(object sender, EventArgs e)
         {
             using (var context = new DatabaseContext())
@@ -35,36 +28,29 @@ namespace Manage_WZ.View.SmallView
                 syncFirm();
                 var wz = context.Wzs.FirstOrDefault(wz => wz.Id == _id);
                 var firm = context.firms.FirstOrDefault(fi => fi.Id == wz.FirmId);
-                this.Name = $"WZ: {firm.Name} Nr: {wz.NumberWZ} Data odbioru: {wz.dateDelivery}";           
+                this.Name = $"WZ: {firm.Name} Nr: {wz.NumberWZ} Data odbioru: {wz.dateDelivery}";
                 NameBox.Text = firm.Name;
                 WzNumberBox.Text = wz.NumberWZ;
                 FvNumberBox.Text = wz.NumberFv;
                 TypeBox.Text = wz.type.ToString();
+                DescriptionBox.Text = wz.Description;
                 DeliveryDateBox.Text = wz.dateDelivery.ToString("d");
                 WzDateBox.Text = wz.dateWZ.ToString("d");
                 FvDateBox.Text = wz.dateFZ.ToString("d");
             }
         }
-
         private void ViewBtn_Click(object sender, EventArgs e)
         {
-            using (var context = new DatabaseContext())
-            {
-                var wz = context.Wzs.FirstOrDefault(w => w.Id == _id);
-                File.WriteAllBytes("C:\\Temp\\WZ.pdf", wz.PdfFile);
-                var proc = Process.Start("C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe", "C:\\Temp\\WZ.pdf");
-                proc.WaitForExit();
-                Thread.Sleep(1000);
-                File.Delete("C:\\Temp\\WZ.pdf");
-            }
-        }       
-
+            asyncView();
+        }
         private void OpenDialogBtn_Click(object sender, EventArgs e)
         {
-            var file = new OpenFileDialog() { 
-                Filter = "Pdf Files|*.pdf"};
+            var file = new OpenFileDialog()
+            {
+                Filter = "Pdf Files|*.pdf"
+            };
             var result = file.ShowDialog();
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 PathBox.Text = file.FileName;
             }
@@ -78,7 +64,8 @@ namespace Manage_WZ.View.SmallView
         private void EditBtn_Click(object sender, EventArgs e)
         {
             if (Enabled)
-            {                
+            {
+                DescriptionBox.Enabled = !Enabled;
                 NameBox.Enabled = !Enabled;
                 WzNumberBox.Enabled = !Enabled;
                 FvNumberBox.Enabled = !Enabled;
@@ -97,7 +84,8 @@ namespace Manage_WZ.View.SmallView
 
             }
             else
-            {                
+            {
+                DescriptionBox.Enabled = !Enabled;
                 NameBox.Enabled = !Enabled;
                 WzNumberBox.Enabled = !Enabled;
                 FvNumberBox.Enabled = !Enabled;
@@ -116,28 +104,24 @@ namespace Manage_WZ.View.SmallView
         private void DeliveryDateBox_Click(object sender, EventArgs e)
         {
             who = 1;
-            CalendarActive(new Point(DeliveryDateBox.Location.X-185, DeliveryDateBox.Location.Y + 20));
+            CalendarActive(new Point(DeliveryDateBox.Location.X - 185, DeliveryDateBox.Location.Y + 20));
         }
-
         private void WzDateBox_Click(object sender, EventArgs e)
         {
             who = 2;
-            CalendarActive(new Point(WzDateBox.Location.X - 185, WzDateBox.Location.Y+20));
+            CalendarActive(new Point(WzDateBox.Location.X - 185, WzDateBox.Location.Y + 20));
         }
-
         private void FvDateBox_Click(object sender, EventArgs e)
         {
             who = 3;
             CalendarActive(new Point(FvDateBox.Location.X - 185, FvDateBox.Location.Y + 20));
         }
-
         private void NameBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
-
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
-        {            
+        {
             switch (who)
             {
                 case 1:
@@ -160,27 +144,29 @@ namespace Manage_WZ.View.SmallView
             Calendar.Enabled = false;
             Calendar.Visible = false;
         }
-
         private void AddBtn_Click(object sender, EventArgs e)
         {
             var comp = new AddCompany();
             comp.ShowDialog();
             syncFirm();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            using(var context = new DatabaseContext())
+            using (var context = new DatabaseContext())
             {
                 var folderBrowser = new FolderBrowserDialog();
                 var result = folderBrowser.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     var wz = context.Wzs.FirstOrDefault(w => w.Id == _id);
-                    File.WriteAllBytes($"{folderBrowser.SelectedPath}\\{wz.NumberFv}.pdf", wz.PdfFile);
+                    string wzName = wz.NumberWZ.Replace('/', '_').Replace('\\', '_')
+                        .Replace('@', '_').Replace('*', '_').Replace('|', '_').Replace('"', '_') + ".pdf";
+                    File.WriteAllBytes($"{folderBrowser.SelectedPath}\\{wzName}", wz.PdfFile);
+                    MessageBox.Show("Plik został zapisany");
                 }
                 else
                 {
+
                     var tip = new ToolTip()
                     {
                         IsBalloon = true
@@ -189,7 +175,6 @@ namespace Manage_WZ.View.SmallView
                 }
             }
         }
-
         private void SaveBtn_Click(object sender, EventArgs e)
         {
             using (var context = new DatabaseContext())
@@ -202,23 +187,27 @@ namespace Manage_WZ.View.SmallView
 
                 var wz = context.Wzs.FirstOrDefault(wz => wz.Id == _id);
                 var firm = context.firms.FirstOrDefault(fi => fi.Name == NameBox.Text);
-                if (wzdate >= DateTime.UtcNow.AddYears(-999))                
-                    wz.dateWZ = wzdate;                                                    
-                if(fvdate >= DateTime.UtcNow.AddYears(-999))
+                if (wzdate >= DateTime.UtcNow.AddYears(-999))
+                    wz.dateWZ = wzdate;
+                if (fvdate >= DateTime.UtcNow.AddYears(-999))
                     wz.dateFZ = fvdate;
-                if(deldate >= DateTime.UtcNow.AddYears(-999))
+                if (deldate >= DateTime.UtcNow.AddYears(-999))
                     wz.dateDelivery = deldate;
                 wz.NumberFv = FvNumberBox.Text;
                 wz.NumberWZ = WzNumberBox.Text;
                 wz.Firm = firm;
+                wz.Description = DescriptionBox.Text.Trim();
                 wz.FirmId = firm.Id;
-                if(TypeBox.Text == "Dostawa")
-                {
+                switch (TypeBox.Text) {
+                    case "Dostawa":
                     wz.type = Model.Type.Dostawa;
-                }
-                else
-                {
+                        break;
+                    case "Serwis":
                     wz.type = Model.Type.Serwis;
+                        break;
+                    case "Inne":
+                        wz.type = Model.Type.Inne;
+                        break;
                 }
                 if (!string.IsNullOrEmpty(PathBox.Text))
                 {
@@ -230,9 +219,12 @@ namespace Manage_WZ.View.SmallView
                     MessageBox.Show("Zapis się udał");
                     this.Close();
                 }
+                else
+                {
+                    MessageBox.Show("Zapis się nie powiódł");
+                }
             }
         }
-
         public void CalendarActive(Point pt)
         {
             if (Enabled && Calendar.Enabled == false)
@@ -258,6 +250,27 @@ namespace Manage_WZ.View.SmallView
                     NameBox.Items.Add(fir.Name);
                 }
             }
+        }
+        public async Task asyncView()
+        {
+            var random = new Random();
+            string name = random.Next().ToString();
+            var path = Settings.Default.TempPath;
+            using (var context = new DatabaseContext())
+            {
+                var wz = context.Wzs.FirstOrDefault(w => w.Id == _id);
+                File.WriteAllBytes($"{path}\\WZ{name}.pdf", wz.PdfFile);
+                Thread.Sleep(1000);
+            }
+            await Task.Run(() =>
+            {
+                using (var proc = Process.Start("CMD.exe", $"/C start msedge \"{path}\\WZ{name}.pdf\""))
+                {
+                    proc.WaitForExit();
+                    Thread.Sleep(1000);
+                }
+            });
+            File.Delete($"{Settings.Default.TempPath}\\WZ{name}.pdf");
         }
     }
 }

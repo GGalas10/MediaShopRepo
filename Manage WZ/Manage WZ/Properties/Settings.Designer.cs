@@ -58,5 +58,17 @@ namespace Manage_WZ.Properties {
                 this["FirstTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Temp\\")]
+        public string TempPath {
+            get {
+                return ((string)(this["TempPath"]));
+            }
+            set {
+                this["TempPath"] = value;
+            }
+        }
     }
 }

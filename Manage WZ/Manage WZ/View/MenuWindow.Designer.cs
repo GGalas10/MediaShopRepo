@@ -98,14 +98,15 @@
             // 
             this.FilterDelBox.FormattingEnabled = true;
             this.FilterDelBox.Items.AddRange(new object[] {
-            "Dostawa i Serwis",
+            "Wszystko",
             "Dostawa",
-            "Serwis"});
+            "Serwis",
+            "Inne"});
             this.FilterDelBox.Location = new System.Drawing.Point(560, 38);
             this.FilterDelBox.Name = "FilterDelBox";
             this.FilterDelBox.Size = new System.Drawing.Size(173, 27);
             this.FilterDelBox.TabIndex = 14;
-            this.FilterDelBox.Text = "Dostawa i Serwis";
+            this.FilterDelBox.Text = "Wszystko";
             this.FilterDelBox.TextChanged += new System.EventHandler(this.FilterDelBox_TextChanged);
             this.FilterDelBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterDelBox_KeyPress);
             // 

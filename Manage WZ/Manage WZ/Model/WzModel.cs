@@ -11,6 +11,7 @@ namespace Manage_WZ.Model
         public int Id { get; set; }
         public string NumberFv { get; set; }
         public string NumberWZ { get; set; }
+        public string Description { get; set; }
         public int FirmId { get; set; }
         public virtual FirmModel Firm { get; set; }
         public DateTime dateWZ { get; set; }
@@ -22,6 +23,7 @@ namespace Manage_WZ.Model
     public enum Type
     {
         Dostawa,
-        Serwis
+        Serwis,
+        Inne
     }
 }
