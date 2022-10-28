@@ -87,6 +87,15 @@ namespace Manage_WZ.View.SmallView
                 if (!string.IsNullOrEmpty(FirmCombo.Text) || !string.IsNullOrEmpty(TypeCombo.Text) ||
                     !string.IsNullOrEmpty(FvNuberBox.Text) || !string.IsNullOrEmpty(WzNumberBox.Text) || !string.IsNullOrEmpty(FilePathBox.Text))
                 {
+                    if (context.Wzs.FirstOrDefault(wz => wz.NumberWZ == WzNumberBox.Text) != null)
+                    {
+                        var tip = new ToolTip()
+                        {
+                            IsBalloon = true
+                        };
+                        tip.Show("Taka WZtka już istnieje", this, WzNumberBox.Location.X+25, WzNumberBox.Location.Y-12, 3000);
+                        return;
+                    }
                     newWz.FirmId = context.firms.FirstOrDefault(f=>f.Name == FirmCombo.Text).Id;
                     newWz.Firm = context.firms.FirstOrDefault(f => f.Name == FirmCombo.Text);
                     switch (TypeCombo.Text)

@@ -69,6 +69,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1005FCC251AB410EB166A07CDD77C880"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_107E9555F264A54691CFCF3FC2D424AF"
         "OwnerKey" = "8:_C5AFB27CFAE53F9F2148FB30F65B4FF3"
         "MsmSig" = "8:_UNDEFINED"
@@ -455,12 +461,6 @@
         {
         "MsmKey" = "8:_69CD63395B398958626FA1C75DA4F5A1"
         "OwnerKey" = "8:_C5AFB27CFAE53F9F2148FB30F65B4FF3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_69E5CC4F92E94657976C6BBF905F7DE8"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1414,6 +1414,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1005FCC251AB410EB166A07CDD77C880"
+            {
+            "SourcePath" = "8:..\\Manage WZ\\bin\\Debug\\net6.0-windows\\Manage WZ.exe"
+            "TargetName" = "8:Manage WZ.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_B4CB200A1B28494692242BAE4DFB40CE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_107E9555F264A54691CFCF3FC2D424AF"
             {
             "AssemblyRegister" = "3:1"
@@ -2329,26 +2349,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_69E5CC4F92E94657976C6BBF905F7DE8"
-            {
-            "SourcePath" = "8:..\\Manage WZ\\bin\\Debug\\net6.0-windows\\Manage WZ.exe"
-            "TargetName" = "8:Manage WZ.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_B4CB200A1B28494692242BAE4DFB40CE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_711DB795B20B4BEBBD95123C410FA42C"
@@ -3944,7 +3944,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WZ manager"
         "ProductCode" = "8:{D0D0B25C-F373-48C3-91A6-4786B65E0730}"
-        "PackageCode" = "8:{94E68888-833B-4182-ACEC-4BD4547FAAA2}"
+        "PackageCode" = "8:{E01FB53E-209D-429B-AF17-7F69FDDEAC3C}"
         "UpgradeCode" = "8:{6E38B117-75D6-4389-B540-7527D546771C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -4072,7 +4072,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_69E5CC4F92E94657976C6BBF905F7DE8"
+            "Target" = "8:_1005FCC251AB410EB166A07CDD77C880"
             "Folder" = "8:_787494DEB32C4D9B9AC1A8A836E92CFB"
             "WorkingFolder" = "8:_B4CB200A1B28494692242BAE4DFB40CE"
             "Icon" = "8:_C108054292B6434EAECC680078BB0CED"

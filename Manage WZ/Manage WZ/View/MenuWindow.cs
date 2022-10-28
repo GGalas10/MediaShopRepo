@@ -45,21 +45,29 @@ namespace Manage_WZ
                 {
                     context.Database.Create();
                 }
-                if (context.Wzs.Count() > 0)
+                if(context.Wzs.Count() <= 0)
+                {
+                    dataGridView1.Rows.Clear();
+                    czy = true;
+                    return;
+                }
+                if (startDate == DateTime.UtcNow.AddYears(-5))
                 {
                     startDate = context.Wzs.Min(wz => wz.dateDelivery);
+                    
                 }
+                wzList = context.Wzs.Where(d => d.dateDelivery >= startDate).Where(d => d.dateDelivery <= endDate).ToList();
                 StartFiltr.Text = startDate.ToString("d");
                 EndFiltr.Text = endDate.ToString("d");
                 if (!string.IsNullOrEmpty(FirmsBox.Text) && FirmsBox.Text!= "Wszystkie firmy")
                 {
                     Firmsid = context.firms.FirstOrDefault(f => f.Name == FirmsBox.Text).Id;
-                    wzList = context.Wzs.Where(wz => wz.FirmId == Firmsid)
-                        .Where(d => d.dateWZ >= startDate && d.dateWZ <= endDate).ToList();
-                }
-                else
-                {
-                    wzList = context.Wzs.Where(d=>d.dateWZ>=startDate && d.dateWZ<=endDate).ToList();
+                    wzList = wzList.Where(wz => wz.FirmId == Firmsid).ToList();
+                    if (wzList.Count <= 0)
+                    {
+                        dataGridView1.Rows.Clear();
+                        return;
+                    }
                 }
                 if (FilterDelBox.Text == "Dostawa")
                 {
@@ -84,7 +92,7 @@ namespace Manage_WZ
                         wzList = wzList.Where(wz => wz.NumberFv.Contains(SearchText.Text)).ToList();
                     }
                 }
-                if (context.Wzs.ToList().Count > 0)
+                if (wzList.Count > 0)
                 {
                     wzList = wzList.OrderByDescending(wz=>wz.dateDelivery).ToList();
                     dataGridView1.Rows.Clear();
@@ -99,6 +107,7 @@ namespace Manage_WZ
                 }
                 else
                 {
+                    dataGridView1.Rows.Clear();
                     czy = true;
                 }                
             }
@@ -152,8 +161,8 @@ namespace Manage_WZ
                         int id = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString());
                         var wz = context.Wzs.FirstOrDefault(wz => wz.Id == id);
                         var firm = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
-                        var result = MessageBox.Show($"Czy na pewno chcesz usun¹æ wz {wz.NumberWZ} z firmy{firm.Name}" +
-                            $"z dnia {wz.dateDelivery.ToString("d")}", 
+                        var result = MessageBox.Show($"Czy na pewno chcesz usun¹æ wz {wz.NumberWZ} z firmy {firm.Name}" +
+                            $" z dnia {wz.dateDelivery.ToString("d")}", 
                             "Usun¹æ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
                         {
