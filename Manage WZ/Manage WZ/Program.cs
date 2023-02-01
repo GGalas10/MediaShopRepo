@@ -1,12 +1,6 @@
-using Manage_WZ.Model;
-using Manage_WZ.Properties;
-using Manage_WZ.View;
-using Manage_WZ.View.SmallView;
-using System.IO;
 using System.Security.AccessControl;
-using System.Security;
-using Setting = Manage_WZ.Properties.Settings;
 using System.Security.Principal;
+using Setting = Manage_WZ.Properties.Settings;
 
 namespace Manage_WZ
 {

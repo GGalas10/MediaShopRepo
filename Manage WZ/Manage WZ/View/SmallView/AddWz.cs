@@ -1,4 +1,5 @@
 ﻿using Manage_WZ.Model;
+using Manage_WZ.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,7 +81,7 @@ namespace Manage_WZ.View.SmallView
             Datasync();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
             using (var context = new DatabaseContext())
             {
@@ -96,31 +97,35 @@ namespace Manage_WZ.View.SmallView
                         tip.Show("Taka WZtka już istnieje", this, WzNumberBox.Location.X+25, WzNumberBox.Location.Y-12, 3000);
                         return;
                     }
-                    newWz.FirmId = context.firms.FirstOrDefault(f=>f.Name == FirmCombo.Text).Id;
-                    newWz.Firm = context.firms.FirstOrDefault(f => f.Name == FirmCombo.Text);
+                    var firmId = context.firms.FirstOrDefault(f=>f.Name == FirmCombo.Text).Id;
+                    var firm = context.firms.FirstOrDefault(f => f.Name == FirmCombo.Text);
+                    var type = new Model.Type();
                     switch (TypeCombo.Text)
                     {
                         case "Dostawa":
-                            newWz.type = Model.Type.Dostawa;
+                             type= Model.Type.Dostawa;
                             break;
                         case "Serwis":
-                            newWz.type = Model.Type.Serwis;
+                            type = Model.Type.Serwis;
                             break;
                         case "Inne":
-                            newWz.type = Model.Type.Inne;
+                            type = Model.Type.Inne;
                             break;
                     }
-                    newWz.Description = DescriptionBox.Text.Trim();
-                    newWz.NumberFv = FvNuberBox.Text.Trim();
-                    newWz.NumberWZ = WzNumberBox.Text.Trim();
+                    var desc = DescriptionBox.Text.Trim();
+                    var fv = FvNuberBox.Text.Trim();
+                    var wz = WzNumberBox.Text.Trim();
                     byte[] bytes = File.ReadAllBytes(FilePathBox.Text.Trim());
-                    newWz.PdfFile = bytes;
-                    context.Wzs.Add(newWz);
-                    if (context.SaveChanges() > 0)
+                    try
                     {
-                        MessageBox.Show("Zapis się udał");
-                        this.Close();
+                        var result = WzSerivce.AddWz(firmId, firm, type, desc, fv, wz, bytes, newWz.dateWZ, newWz.dateFZ, newWz.dateDelivery);
+                        if (result == Task.CompletedTask)
+                            MessageBox.Show("Zapis się powiódł");
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
+
                 }
                 else
                 {
