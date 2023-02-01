@@ -97,8 +97,8 @@ namespace Manage_WZ.View.SmallView
                         tip.Show("Taka WZtka już istnieje", this, WzNumberBox.Location.X+25, WzNumberBox.Location.Y-12, 3000);
                         return;
                     }
-                    var firmId = context.firms.FirstOrDefault(f=>f.Name == FirmCombo.Text).Id;
-                    var firm = context.firms.FirstOrDefault(f => f.Name == FirmCombo.Text);
+                    var firmId = await Task.FromResult(context.firms.FirstOrDefault(f=>f.Name == FirmCombo.Text).Id);
+                    var firm = await Task.FromResult(context.firms.FirstOrDefault(f => f.Name == FirmCombo.Text));
                     var type = new Model.Type();
                     switch (TypeCombo.Text)
                     {
