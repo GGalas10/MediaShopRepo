@@ -10,13 +10,16 @@ namespace Manage_WZ
 {
     public partial class MenuWindow : Form
     {
+        private int page = 1;
+        private int perPage = 40;
+        private int maxPage = 1;
         bool czy = false;
-        DateTime startDate = DateTime.UtcNow.AddYears(-5), endDate=DateTime.UtcNow.AddDays(1);
+        DateTime startDate = DateTime.UtcNow.AddYears(-5), endDate = DateTime.UtcNow.AddDays(1);
         bool who = false;
         public MenuWindow()
         {
             InitializeComponent();
-            
+
         }
         public void SyncFirms()
         {
@@ -26,26 +29,26 @@ namespace Manage_WZ
                 {
                     FirmsBox.Items.Clear();
                     FirmsBox.Items.Add("Wszystkie firmy");
-                    var allfirms = context.firms.ToList();
+                    var allfirms = context.firms.AsNoTracking().ToList();
                     foreach (var firm in allfirms)
                     {
                         FirmsBox.Items.Add(firm.Name);
-                    }                   
+                    }
                 }
             }
         }
         public void SyncDate()
         {
             List<WzModel> wzList = new List<WzModel>();
-            int Firmsid;           
+            int Firmsid;
             using (DatabaseContext context = new DatabaseContext())
             {
-                
+
                 if (!context.Database.Exists())
                 {
                     context.Database.Create();
                 }
-                if(context.Wzs.Count() <= 0)
+                if (context.Wzs.Count() <= 0)
                 {
                     dataGridView1.Rows.Clear();
                     czy = true;
@@ -54,14 +57,16 @@ namespace Manage_WZ
                 if (startDate == DateTime.UtcNow.AddYears(-5))
                 {
                     startDate = context.Wzs.Min(wz => wz.dateDelivery);
-                    
+
                 }
-                wzList = context.Wzs.Where(d => d.dateDelivery >= startDate).Where(d => d.dateDelivery <= endDate).ToList();
+                wzList = context.Wzs.AsNoTracking().Where(d => d.dateDelivery >= startDate).Where(d => d.dateDelivery <= endDate).ToList();
+                
+                
                 StartFiltr.Text = startDate.ToString("d");
                 EndFiltr.Text = endDate.ToString("d");
-                if (!string.IsNullOrEmpty(FirmsBox.Text) && FirmsBox.Text!= "Wszystkie firmy")
+                if (!string.IsNullOrEmpty(FirmsBox.Text) && FirmsBox.Text != "Wszystkie firmy")
                 {
-                    Firmsid = context.firms.FirstOrDefault(f => f.Name == FirmsBox.Text).Id;
+                    Firmsid = context.firms.AsNoTracking().FirstOrDefault(f => f.Name == FirmsBox.Text).Id;
                     wzList = wzList.Where(wz => wz.FirmId == Firmsid).ToList();
                     if (wzList.Count <= 0)
                     {
@@ -83,7 +88,7 @@ namespace Manage_WZ
                 }
                 if (SearchText.Enabled == true && !string.IsNullOrEmpty(SearchText.Text))
                 {
-                    if(SearchBox.Text == "Numer Wz")
+                    if (SearchBox.Text == "Numer Wz")
                     {
                         wzList = wzList.Where(wz => wz.NumberWZ.Contains(SearchText.Text)).ToList();
                     }
@@ -94,22 +99,28 @@ namespace Manage_WZ
                 }
                 if (wzList.Count > 0)
                 {
-                    wzList = wzList.OrderByDescending(wz=>wz.dateDelivery).ToList();
+                    maxPage = wzList.Count / perPage;
+                    if (wzList.Count % perPage != 0)
+                        maxPage++;
+                    if (page > maxPage)
+                        page = 1;
+                    PageLbl.Text = $"Strona {page} z {maxPage}";
+                    wzList = wzList.OrderByDescending(wz => wz.dateDelivery).Skip((page - 1) * perPage).Take(40).ToList();                    
                     dataGridView1.Rows.Clear();
                     foreach (var wz in wzList)
                     {
-                        var fi = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
-                        dataGridView1.Rows.Add(wz.Id,dataGridView1.Rows.Count+1,fi.Name, 
-                            wz.NumberWZ,wz.NumberFv,
-                            wz.dateFZ.ToString("d"),wz.dateDelivery.ToString("d"),wz.dateWZ.ToString("d")
-                            , "Podgl¹d","Usuñ");
+                        var fi = context.firms.AsNoTracking().FirstOrDefault(f => f.Id == wz.FirmId);
+                        dataGridView1.Rows.Add(wz.Id, dataGridView1.Rows.Count + 1, fi.Name,
+                            wz.NumberWZ, wz.NumberFv,
+                            wz.dateFZ.ToString("d"), wz.dateDelivery.ToString("d"), wz.dateWZ.ToString("d")
+                            , "Podgl¹d", "Usuñ");
                     }
                 }
                 else
                 {
                     dataGridView1.Rows.Clear();
                     czy = true;
-                }                
+                }
             }
         }
         private void MenuWindow_Load(object sender, EventArgs e)
@@ -162,7 +173,7 @@ namespace Manage_WZ
                         var wz = context.Wzs.FirstOrDefault(wz => wz.Id == id);
                         var firm = context.firms.FirstOrDefault(f => f.Id == wz.FirmId);
                         var result = MessageBox.Show($"Czy na pewno chcesz usun¹æ wz {wz.NumberWZ} z firmy {firm.Name}" +
-                            $" z dnia {wz.dateDelivery.ToString("d")}", 
+                            $" z dnia {wz.dateDelivery.ToString("d")}",
                             "Usun¹æ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
                         {
@@ -174,8 +185,8 @@ namespace Manage_WZ
                                 MessageBox.Show("Dokument zosta³ usuniêty");
                             }
                         }
-                       }
-                SyncDate();
+                    }
+                    SyncDate();
                 }
             }
         }
@@ -193,7 +204,7 @@ namespace Manage_WZ
                 Calendar.Enabled = false;
                 Calendar.Visible = false;
             }
-            
+
         }
         private void Calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
@@ -286,7 +297,7 @@ namespace Manage_WZ
         {
             if (Calendar.Enabled == false)
             {
-                Calendar.Location = new Point(StartDateFiltr.Location.X - 20,StartDateFiltr.Location.Y+30);
+                Calendar.Location = new Point(StartDateFiltr.Location.X - 20, StartDateFiltr.Location.Y + 30);
                 Calendar.Enabled = true;
                 Calendar.Visible = true;
                 who = false;
@@ -295,6 +306,26 @@ namespace Manage_WZ
             {
                 Calendar.Enabled = false;
                 Calendar.Visible = false;
+            }
+        }
+
+        private void LeftBtn_Click(object sender, EventArgs e)
+        {
+            if (page > 1)
+            {
+                page--;
+                SyncDate();
+                PageLbl.Text = $"Strona {page} z {maxPage}";
+            }
+        }
+
+        private void RightBtn_Click(object sender, EventArgs e)
+        {
+            if (page < maxPage)
+            {
+                page++;
+                SyncDate();
+                PageLbl.Text = $"Strona {page} z {maxPage}";
             }
         }
     }
